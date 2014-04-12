@@ -1,6 +1,11 @@
 var spawn = require('child_process').spawn;
 var child = spawn('node', ['childWorker.js']);
-setInterval(function() {
+child.on('exit', function(code) {
+	console.log('child process terminated with code ' + code);
+	clearInterval( timer );
+
+});
+var timer = setInterval(function() {
 	var number = Math.floor(Math.random() * 10000);
 	child.stdin.write(number + "\n");
 	child.stdout.once('data', function(data) {
