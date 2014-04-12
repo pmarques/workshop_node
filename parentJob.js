@@ -12,3 +12,8 @@ var timer = setInterval(function() {
 		console.log('child replied to ' + number + ' with: ' + data);
 	});
 }, 1000);
+
+setTimeout(function() {
+	console.log( 'Send signal' );
+	child.kill();
+}, 4500);
