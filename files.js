@@ -14,11 +14,16 @@ fs.exists( filePath, function(exists) {
 		filePosition = 0;
 
 		function read( err, readBytes ) {
-			if (err) { throw err; }
-			console.log('just read ' + readBytes + ' bytes');
-			if (readBytes > 0) {
-				console.log(readBuffer.slice(0, readBytes));
+			if (!err) {
+				console.log('just read ' + readBytes + ' bytes');
+				if (readBytes > 0) {
+					console.log(readBuffer.slice(0, readBytes));
+				}
 			}
+
+			fs.close(fd, function() {
+				console.log( "File closed" );
+			});
 		}
 
 		fs.read( fd, readBuffer, bufferOffset, bufferLength, filePosition, read );
