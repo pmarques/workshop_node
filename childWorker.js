@@ -13,3 +13,7 @@ process.stdin.on('data', function(data) {
 		process.stderr.write(err.message + "\n");
 	}
 });
+
+process.on( 'SIGUSR2', function() {
+	process.stderr.write( 'Got SIGUSR2 signal [counter = ' + counter + ']' );
+})

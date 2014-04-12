@@ -13,7 +13,11 @@ var timer = setInterval(function() {
 	});
 }, 1000);
 
+child.stderr.once('data', function(data) {
+	console.log('ERR: ' + data);
+});
+
 setTimeout(function() {
 	console.log( 'Send signal' );
-	child.kill();
+	child.kill( 'SIGUSR2' );
 }, 4500);
