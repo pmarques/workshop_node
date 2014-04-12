@@ -1,4 +1,3 @@
-setTimeout( function() {
-	console.log( 'world' );
-}, 2000 );
-console.log( 'Hello' );
+setInterval( function() {
+	console.log( 'again' );
+}, 600 );
