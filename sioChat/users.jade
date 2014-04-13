@@ -1,0 +1,7 @@
+h1 Users
+    p
+        ul
+          - for(var username in users) {
+            li
+                a(href="/users/" + encodeURIComponent(username))=users[username].name
+          - };

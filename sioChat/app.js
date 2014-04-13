@@ -22,6 +22,9 @@ app.configure(function () {
   app.use(express.static(__dirname + '/public'));
   app.set('views', __dirname);
   app.set('view engine', 'jade');
+  app.set('view options', {
+	    layout: false
+  });
 
   function compile (str, path) {
     return stylus(str)
@@ -33,9 +36,14 @@ app.configure(function () {
 /**
  * App routes.
  */
+var users = [];
 
 app.get('/', function (req, res) {
   res.render('index', { layout: false });
+});
+
+app.get('/users', function(req, res){
+	res.render('users', {title: 'Users', users: users});
 });
 
 /**
