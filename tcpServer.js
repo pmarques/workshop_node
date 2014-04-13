@@ -3,8 +3,12 @@ var port = 3000;
 server.on('listening', function() {
 	console.log('Server is listening on port', port);
 });
+
 server.on('connection', function(socket) {
 	console.log('Server has a new connection');
+
+	var rs = require('fs').createReadStream('/var/run/motd');
+	rs.pipe(socket, { end : false } );
 
 	socket.setEncoding( 'utf8' );
 	socket.on('data', function(data) {
