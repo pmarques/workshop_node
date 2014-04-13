@@ -92,7 +92,7 @@ io.sockets.on('connection', function (socket) {
   });
 
   socket.on('nickname', function (nick, fn) {
-    if (nicknames[nick]) {
+    if (nicknames[nick] || !users[nick]) {
       fn(true);
     } else {
       fn(false);

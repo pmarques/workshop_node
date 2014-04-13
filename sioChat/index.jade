@@ -72,7 +72,10 @@ html
         form.wrap#set-nickname
           p Please type in your nickname and press enter.
           input#nick
-          p#nickname-err Nickname already in use
+          p#nickname-err
+              Unknown nickname or already in use
+              <br \>
+              a(href="/users/") List Users
       #connecting
         .wrap Connecting to socket.io server
       #messages
