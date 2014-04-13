@@ -18,6 +18,7 @@ var app = express.createServer();
  */
 
 app.configure(function () {
+  app.use( express.bodyParser() );
   app.use(stylus.middleware({ src: __dirname + '/public', compile: compile }));
   app.use(express.static(__dirname + '/public'));
   app.set('views', __dirname);
@@ -44,6 +45,20 @@ app.get('/', function (req, res) {
 
 app.get('/users', function(req, res){
 	res.render('users', {title: 'Users', users: users});
+});
+
+app.get('/users/new', function (req, res) {
+  res.render('register');
+});
+
+app.post('/users', function(req, res) {
+	console.log( 'Registering new user' );
+	if (users[req.body.username]) {
+		res.send('Conflict', 409);
+	} else {
+		users[req.body.username] = req.body;
+		res.redirect('/users');
+	}
 });
 
 /**
