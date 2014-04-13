@@ -51,6 +51,15 @@ app.get('/users/new', function (req, res) {
   res.render('register');
 });
 
+app.get('/users/:name', function(req, res, next){
+	var user = users[req.params.name];
+	if (user) {
+		res.render('profile', {title: 'User profile', user: user});
+	} else {
+		next();
+	}
+});
+
 app.post('/users', function(req, res) {
 	console.log( 'Registering new user' );
 	if (users[req.body.username]) {
