@@ -4,11 +4,13 @@ var host = 'localhost';
 var conn = net.createConnection(port, host);
 conn.once('connect', function() {
 	console.log('connected to server');
-	conn.write('Bye bye!', 'utf8');
-	setTimeout( function() {
-		conn.write('quit', 'utf8');
-	}, 2000 );
+	process.stdin.resume();
+	process.stdin.pipe(conn);
+	conn.pipe(process.stdout);
 });
+conn.on('end', function(data) {
+	process.stdin.pause();
+})
 conn.on('data', function(data) {
 	console.log('some data has arrived:', data);
 });
