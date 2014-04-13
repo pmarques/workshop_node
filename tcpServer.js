@@ -5,8 +5,16 @@ server.on('listening', function() {
 });
 server.on('connection', function(socket) {
 	console.log('Server has a new connection');
-	socket.end();
-	server.close();
+
+	socket.setEncoding( 'utf8' );
+	socket.on('data', function(data) {
+		console.log('got:', data.toString())
+		if (data.trim().toLowerCase() === 'quit') {
+			socket.write('Bye bye!');
+			return socket.end();
+		}
+		socket.write(data);
+	});
 });
 server.on('close', function() {
 	console.log('Server is now closed');
@@ -14,4 +22,5 @@ server.on('close', function() {
 server.on('error', function(err) {
 	console.log('Error occurred:', err.message);
 });
+
 server.listen(port);
